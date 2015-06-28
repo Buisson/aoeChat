@@ -25,7 +25,7 @@
   
   <body>
    <fieldset>
-     <legend>Un chat en jQuery</legend>
+     <legend>AOE Madness</legend>
       <div id="conversation"></div><br />
       <form action="#" method="post" id="form">
         <input type="text" id="nom" value="pseudo" size="6">
@@ -41,13 +41,9 @@
 
   var soundGame;
   function lire_son(src) {
-          if(soundGame!=null){
-                  soundGame.pause();
-                  soundGame.currentTime = 0;
-          }
-          console.log("lire son");
-          soundGame = new Audio(src);
-          soundGame.play();
+    console.log("lire son");
+    soundGame = new Audio(src);
+    soundGame.play();
   }
   
 
@@ -79,11 +75,15 @@
     
     function afficheConversation() {      
       $('#conversation').load('ac.htm');
-      $('#conversation').scrollTop(10000000000); //lol
+
+
+      
 
       var item = $('#conversation div:last > span');
       var msgTxt = item.html();
       var msgId = item.attr('id');
+      
+      if (msgId != lastId) $('#conversation').scrollTop(10000000000); //lol
 
       if( $.isNumeric(msgTxt) 
           && msgTxt > 0 
