@@ -21,6 +21,7 @@
         border: black 1px solid;
       }    
     </style>
+
   </head>
   
   <body>
@@ -35,6 +36,7 @@
     </fieldset>
    <script src="js/sound.js"></script>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.1.1/randomColor.js"></script>
 <script>
   
 
@@ -58,17 +60,9 @@
     "sounds/07 Ahh.mp3",
   ];
 
-  function getRandomColor() {
-    var letters = '0123456789AB'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 12)];
-    }
-    return color;
-  }
 
   var lastId = 0;
-  var color = getRandomColor();
+  var color = randomColor({luminosity: 'dark'});
 
   $(function() {
     
