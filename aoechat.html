@@ -32,22 +32,71 @@
         <button type="button" id="envoyer" title="Envoyer"><img src="envoyer.gif"></button>
       </form>
     </fieldset>
-   
+   <script src="js/sound.js"></script>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>
+  
+  var soundGame;
+  function lire_son(src) {
+          if(soundGame!=null){
+                  soundGame.pause();
+                  soundGame.currentTime = 0;
+          }
+          console.log("lire son");
+          soundGame = new Audio(src);
+          soundGame.play();
+  }
+  
+  
   $(function() {
     afficheConversation();
     $('#envoyer').click(function() {
         var nom = $('#nom').val();
         var message = $('#message').val();
         $.post('chat.php', {'nom':nom, 'message': message }, function() {
-          afficheConversation;
+          afficheConversation();
         });
+        $('#message').val('');
+    });
+    
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            var nom = $('#nom').val();
+            var message = $('#message').val();
+            switch(message){
+              case "1":
+                lire_son("sounds/01 Yes.mp3");
+                break;
+              case "2":
+                lire_son("sounds/02 No.mp3");
+                break;
+              case "3":
+                lire_son("sounds/03 Food, please.mp3");
+                break;
+              case "4":
+                lire_son("sounds/04 Wood, please.mp3");
+                break;
+              case "5":
+                lire_son("sounds/05 Gold, PLease.mp3");
+                break;
+              case "6":
+                lire_son("sounds/06 Stone, please.mp3");
+                break;
+              case "7":
+                lire_son("sounds/07 Ahh.mp3");
+                break;
+              default:
+                break;
+            }
+            $.post('chat.php', {'nom':nom, 'message': message }, function() {
+              afficheConversation();
+            });
+            $('#message').val('');
+        }
     });
     
     function afficheConversation() {
       $('#conversation').load('ac.htm');
-      $('#message').val('');
       $('#message').focus();
     }
     setInterval(afficheConversation, 4000);
