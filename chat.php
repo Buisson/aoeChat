@@ -4,6 +4,7 @@
     
     if($DEBUG)
     {
+        $_POST['color'] = "#000000";
     	$_POST['nom'] = "test";                  
     	$_POST['message'] = "haaa";
     } 
@@ -14,18 +15,20 @@
     	exit();
     }
 
-    if(!isset($_POST['nom']) || !isset($_POST['message'])) 
+    if(!isset($_POST['nom']) || !isset($_POST['message']) || !isset($_POST['color'])) 
     	exit();
    
-    if(empty($_POST['nom']) || empty($_POST['message']))
+    if(empty($_POST['nom']) || empty($_POST['message'] || empty($_POST['color'])))
     	exit();
     
 
     $nom = htmlspecialchars($_POST['nom']);                    //On récupère le pseudo et on le stocke dans une variable
-    $message = htmlspecialchars($_POST['message']);            //On fait de même avec le message  
+    $message = htmlspecialchars($_POST['message']);            //On fait de même avec le message 
+    $color = htmlspecialchars($_POST['color']);
+
     $id = file('cpt.txt')[0] + 1;
     file_put_contents('cpt.txt', $id);
-    $ligne = '<div>'.$nom.' > <span id="'.$id.'">'.$message.'</span></div>';     //Le message est créé 
+    $ligne = '<div><font color="'.$color.'" > '.$nom.' > </font>  <span id="'.$id.'">'.$message.'</span></div>';     //Le message est créé 
 
     if($DEBUG)
     	echo 'Ligne : '.$ligne.'<hr>';

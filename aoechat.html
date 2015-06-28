@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
 
-    <title>Chat jQuery</title>
+    <title>AOE Madness</title>
       <style type="text/css">
       #conversation {
         width: 300px;
@@ -58,7 +58,17 @@
     "sounds/07 Ahh.mp3",
   ];
 
+  function getRandomColor() {
+    var letters = '0123456789AB'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 12)];
+    }
+    return color;
+  }
+
   var lastId = 0;
+  var color = getRandomColor();
 
   $(function() {
     
@@ -79,7 +89,7 @@
 
       
 
-      var item = $('#conversation div:last > span');
+      var item = $('#conversation div:last > span:last');
       var msgTxt = item.html();
       var msgId = item.attr('id');
       
@@ -98,7 +108,7 @@
     function sendMsg() {
       var nom = $('#nom').val();
       var message = $('#message').val();
-      $.post('chat.php', {'nom':nom, 'message': message }, function() {
+      $.post('chat.php', {'nom':nom, 'message': message, 'color':color }, function() {
           afficheConversation();
       });
       $('#message').val('');
